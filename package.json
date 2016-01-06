@@ -11,6 +11,10 @@
     "react": "^0.13.3",
     "webpack": "^1.10.5"
   },
+  "scripts":{
+    "prestart":"webpack",
+    "start":"node app-server.js"
+  },
   "devDependencies": {},
   "author": "Luis Velandia",
   "license": "MIT"
