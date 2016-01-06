@@ -1,0 +1,13 @@
+{
+  "name": "polling",
+  "version": "0.0.1",
+  "description": "polling for my lift",
+  "main": "APP.js",
+  "dependencies": {
+    "bootstrap": "^3.3.5",
+    "express": "^4.13.1"
+  },
+  "devDependencies": {},
+  "author": "Luis Velandia",
+  "license": "MIT"
+}
