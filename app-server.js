@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 
 var connections = [];
+var title = 'Untitle Presentation';
 
 app.use(express.static('./public'));
 app.use(express.static('./node_modules/bootstrap/dist/'));
@@ -16,6 +17,10 @@ io.sockets.on('connection', function (socket) {
 		connections.splice(connections.indexOf(socket), 1);
 		socket.disconnect();
 		console.log('disconnect');
+	});
+
+	socket.emit('welcome', {
+		title: title
 	});
 
 	connections.push(socket);
