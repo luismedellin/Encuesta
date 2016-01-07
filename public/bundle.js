@@ -20435,24 +20435,36 @@
 
 	var React = __webpack_require__(1);
 	var io = __webpack_require__(158);
+	var Header = __webpack_require__(208);
 
 	var APP = React.createClass({
 		displayName: 'APP',
 
+		getInitialState: function getInitialState() {
+			return {
+				status: 'disconnect'
+			};
+		},
+
 		componentWillMount: function componentWillMount() {
 			this.socket = io('http://localhost:3000');
 			this.socket.on('connect', this.connect);
+			this.socket.on('disconnect', this.disconnect);
 		},
 
 		connect: function connect() {
-			alert('Connect: ' + this.socket.id);
+			this.setState({ status: 'connected' });
+		},
+
+		disconnect: function disconnect() {
+			this.setState({ status: 'disconnected' });
 		},
 
 		render: function render() {
 			return React.createElement(
-				'h1',
+				'div',
 				null,
-				'Hola mundo'
+				React.createElement(Header, { title: 'Hola mundo entre modulos', status: this.state.status })
 			);
 		}
 	});
@@ -28105,6 +28117,46 @@
 	};
 
 
+
+/***/ },
+/* 208 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var Header = React.createClass({
+		displayName: 'Header',
+
+		propTypes: {
+			title: React.PropTypes.string.isRequired,
+			status: React.PropTypes.string.isRequired
+		},
+
+		render: function render() {
+			return React.createElement(
+				'header',
+				{ className: 'row' },
+				React.createElement(
+					'div',
+					{ className: 'col-xs-10' },
+					React.createElement(
+						'h1',
+						null,
+						this.props.title
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'col-xs-2' },
+					React.createElement('span', { id: 'connection-status', className: this.props.status })
+				)
+			);
+		}
+	});
+
+	module.exports = Header;
 
 /***/ }
 /******/ ]);

@@ -1,19 +1,36 @@
-var React 	= require('react');
+var React =	require('react');
 var io = 	require('socket.io-client');
+var Header =require('./parts/Header');
+
 
 var APP = React.createClass({
+
+	getInitialState(){
+		return ({
+			status: 'disconnect'
+		});
+	},
 
 	componentWillMount(){
 		this.socket = io('http://localhost:3000');
 		this.socket.on('connect', this.connect);
+		this.socket.on('disconnect',this.disconnect);
 	},
 
 	connect(){
-		alert('Connect: '+this.socket.id);
+		this.setState({ status: 'connected' })
+	},
+
+	disconnect(){
+		this.setState({ status: 'disconnected' })
 	},
 
 	render() {
-		return (<h1>Hola mundo</h1>);
+		return (
+			<div>
+				<Header title='Hola mundo entre modulos' status={this.state.status} />
+			</div>
+		);
 	}
 });
 
